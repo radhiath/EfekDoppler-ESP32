@@ -9,10 +9,7 @@
 #define MOTOR_A_IN2 18
 #define MOTOR_B_IN1 4
 #define MOTOR_B_IN2 2
-// #define MAX_PWM_SPEED 1638 // Kecepatan maksimum motor
-// #define MAX_PWM_SPEED 2457 // Kecepatan maksimum motor
-#define MAX_PWM_SPEED 2660 // Kecepatan maksimum motor
-// #define MAX_PWM_SPEED 2047 // Kecepatan maksimum motor
+#define MAX_PWM_SPEED 2047 // Kecepatan maksimum motor
 
 // Konfigurasi pin tombol
 #define BUTTON_NEXT_MODE_PIN 26 // Tombol untuk mengontrol mode
@@ -40,8 +37,8 @@
 uint8_t modeState = 1;           // Status mode
 uint8_t speakerState = 0;        // Status frekuensi speaker
 uint8_t motorState = 0;          // Status pergerakan motor
-bool isTransmitReady = false; // Flag untuk menentukan apakah data akan dikirim
-bool isHeader = false;
+bool isTransmitReady = false;    // Flag untuk menentukan apakah data akan dikirim
+bool isHeader = false;           // Falg untuk menentukan header atau bukan
 uint16_t srcFrequency;
 
 const uint16_t FREQUENCIES[5] = {0, 700, 800, 900, 1000};
@@ -49,7 +46,7 @@ const uint16_t FREQUENCIES[5] = {0, 700, 800, 900, 1000};
 // Konfigurasi WiFi dan server
 const char *WIFI_SSID = "apaya";
 const char *WIFI_PASSWORD = "241196221b";
-const char *SERVER_URL = "https://script.google.com/macros/s/AKfycbwRXJ2VNopinHLR9IjjK7A5qnkEmXzTdoN15TBXWeI6-PDKaW1UYlM1EOnfF1gLPlY/exec";
+const char *SERVER_URL = "https://script.google.com/macros/s/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/exec";
 
 String jsonString;
 
@@ -125,7 +122,6 @@ void loop() {
     displayMode();
     displayisTransmitReady();
     displayWiFiStatus();
-    // Serial.println(transmissionCounter);
 }
 
 // Fungsi callback untuk ESP-NOW
@@ -139,9 +135,9 @@ void onESPNowDataReceived(const esp_now_recv_info *info, const uint8_t *incoming
     jsonString = createJsonPayload(
         modeState,                // Status mode saat ini
         espNowData.temperature,   // Suhu dari slave
-        srcFrequency,              // Frekuensi speaker saat ini
+        srcFrequency,             // Frekuensi speaker saat ini
         espNowData.obsvFrequency, // Frekuensi (terdengar) dari slave
-        isHeader      // Jumlah transmisi yang sudah dilakukan
+        isHeader                  // Header atau bukan
     );
 }
 
