@@ -28,7 +28,6 @@
 byte motorState = 0;          // Status pergerakan motor
 
 // ESP-NOW
-// uint8_t masterAddress[] = {0x10, 0x06, 0x1C, 0xF6, 0x43, 0xAC};
 uint8_t masterAddress[] = {0xF8, 0xB3, 0xB7, 0x45, 0x3F, 0x94};
 typedef struct {
     double obsvFrequency = 0;
@@ -172,7 +171,6 @@ void processData(void *parameter) {
         espNowData.temperature = temperatureSensor.getTempCByIndex(0); // Ambil suhu
         Serial.printf("%f Hz, %f C\n",  espNowData.obsvFrequency,  espNowData.temperature);
         esp_err_t result = esp_now_send(masterAddress, (uint8_t *)&espNowData, sizeof(espNowData));
-        // Serial.println((result == ESP_OK) ? "Pengiriman berhasil" : "Pengiriman gagal");
         if (result != ESP_OK) {
             Serial.println(result);
         }
