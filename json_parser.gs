@@ -27,16 +27,8 @@ function doPost(e) {
   // Ambil konfigurasi berdasarkan mode
   const { sheetName, sourceVelocity, observerVelocity } = modeConfig[data.mode] || {};
 
-  // if (!sheetName) {
-  //   return ContentService.createTextOutput("Nama seeet salah");
-  // }
-
   // Akses sheet berdasarkan nama
   let sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
-
-  // if (!sheet) {
-  //   sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet(sheetName);
-  // }
 
   // Header kolom
   const header = [
